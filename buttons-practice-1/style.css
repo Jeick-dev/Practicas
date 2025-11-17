@@ -18,7 +18,7 @@ body {
 
 .buttons-container {
 	max-width: 800px;
-	max-height: 600px;
+	max-height: 900px;
 	height: 100%;
 	width: 100%;
 	background: rgba(255, 255, 255, 0.1);
@@ -27,8 +27,10 @@ body {
 	border: 1px solid rgba(255, 255, 255, 0.3);
 	padding: 30px;
 	display: flex;
-	gap: 10px;
-	align-items: flex-start;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
 
 	& button {
 		cursor: pointer;
@@ -190,6 +192,46 @@ body {
 			font-size: 18px;
 		}
 	}
+
+	& .super-button {
+		font-size: 18px;
+		color: #222222;
+		font-family: inherit;
+		font-weight: 800;
+		cursor: pointer;
+		position: relative;
+		border: none;
+		background: none;
+		text-transform: uppercase;
+
+		&:hover,
+		&:focus {
+			color: #222222;
+		}
+
+		/* Make the pseudo-element an inset border overlay that appears on hover */
+		&:after {
+			content: '';
+			pointer-events: none;
+			position: absolute;
+			/* cover whole button area */
+			inset: 0;
+			box-sizing: border-box;
+			padding: margin;
+			border: 2px solid transparent;
+			border-radius: inherit; /* follow the button's radius if any */
+			transition: transform 220ms ease, border-color 220ms ease, opacity 220ms ease;
+			transform: scale(0.98); /* slightly smaller to look like an outline */
+			opacity: 0;
+		}
+
+		&:hover:after,
+		&:focus:after {
+			transform: scale(1);
+			opacity: 1;
+			border-color: #222222; /* visible border color on hover */
+		}
+	}
 }
 
 @keyframes wave {
@@ -211,5 +253,19 @@ body {
 	}
 	100% {
 		background-position: 0% 50%;
+	}
+}
+
+@keyframes animateBorder {
+	0% {
+		&:after {
+			border-color: #000;
+		}
+	}
+	50% {
+		border-color: #ff0000;
+	}
+	100% {
+		border-color: #000;
 	}
 }
